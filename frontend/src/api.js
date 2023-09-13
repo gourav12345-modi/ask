@@ -24,3 +24,5 @@ export const createQuestion = (question) => axiosToken.post(`${baseURL}/question
 export const getQuestions = () => axios.get(`${baseURL}/question`)
 export const editQuestion = (questionId, question) => axiosToken.patch(`${baseURL}/question/${questionId}`, question)
 export const getQuestion = (questionId) => axios.get(`${baseURL}/question/${questionId}`)
+
+export const createAnswer = (questionId, answer) => axiosToken.post(`${baseURL}/answer/${questionId}`, answer)

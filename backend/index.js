@@ -2,6 +2,7 @@ const express = require("express")
 const dotenv = require("dotenv")
 const userRoutes = require("./routes/user.routes")
 const questionRoutes = require("./routes/question.routes")
+const answerRoutes = require("./routes/answer.routes")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const errorMiddleware = require("./middleware/error.middleware")
@@ -20,6 +21,7 @@ app.get('/status', (req, res) => {
 })
 app.use('/api/user', userRoutes)
 app.use('/api/question', questionRoutes)
+app.use('/api/answer', answerRoutes)
 app.use(errorMiddleware);
 
 const port = process.env.PORT || 8000;

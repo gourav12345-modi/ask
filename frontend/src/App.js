@@ -13,16 +13,9 @@ import NavbarWithSearch from './components/Navbar';
 import CreateQuestion from './pages/CreateQuestion';
 import { getQuestions } from './actions/question.actions';
 import EditQuestion from './pages/EditQuestion';
+import ViewQuestion from './pages/ViewQuestion';
 
 function App() {
-
-  const dispatch = useDispatch()
-
-  const { token } = useSelector((state) => state.userData)
-
-  useEffect(() => {
-      dispatch(getQuestions())
-  }, [])
 
   return (
     <div className="App">
@@ -34,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/create" element={<CreateQuestion />} />
           <Route path="/edit" element={<EditQuestion />} />
+          <Route path="/view" element={<ViewQuestion />} />
         </Routes>
       </Router>
     </div>

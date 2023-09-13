@@ -54,7 +54,7 @@ function CreateQuestion() {
         <Typography variant="h5" className="text-left mb-12">Add your question details bellow.</Typography>
 
         {
-              errors.message ? ( <Alert color="red" className='w-full'>{errors.message}</Alert> ): 
+              errors?.message ? ( <Alert color="red" className='w-full'>{errors.message}</Alert> ): 
               questionCreateState === REQUEST_SUCCESS &&  ( <Alert color="green" className='w-full'>Question Created Successfully</Alert> )
         }
 

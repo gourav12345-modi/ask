@@ -24,8 +24,20 @@ function EditQuestion() {
       const search = window.location.search;
       const params = new URLSearchParams(search);
       const questionId = params.get('id');
-      const {data} = await api.getQuestion(questionId)
-      setQuestion(data)
+      if(!questionId) {
+        setErrors({message: "No question found to edit." })
+        setTimeout(() => {
+          navigate("/")
+        }, 2000)
+      }
+     
+      try {
+        const { data } = await api.getQuestion(questionId)
+        setQuestion(data)
+      } catch (error) {
+        console.log(error)
+        setErrors(error?.response?.data)
+      }
     }
     fetchQuestionData()
   }, [])
@@ -64,7 +76,7 @@ function EditQuestion() {
         <Typography variant="h5" className="text-left mb-12">Edit your question details bellow.</Typography>
 
         {
-          errors.message ? (<Alert color="red" className='w-full'>{errors.message}</Alert>) :
+          errors?.message ? (<Alert color="red" className='w-full'>{errors.message}</Alert>) :
             questionEditState === REQUEST_SUCCESS && (<Alert color="green" className='w-full'>Question Updated Successfully</Alert>)
         }
 

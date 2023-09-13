@@ -3,7 +3,7 @@ const Question = require("../models/question.model")
 exports.createQuestion = async (req, res, next) => {
   try {
     const { title, body, tags } = req.body;
-    const userId = req.user.id;
+    const userId = req.user.userId;
     const question = new Question({ title, body, tags, creator: userId });
     await question.save();
     res.status(201).json(question);
@@ -16,7 +16,7 @@ exports.editQuestion = async (req, res, next) => {
   try {
     const { title, body, tags } = req.body;
     const questionId = req.params.id;
-    const userId = req.user.id
+    const userId = req.user.userId
     
     const updatedQuestion = await Question.findOneAndUpdate(
       {_id: questionId, creator: userId},
@@ -47,7 +47,13 @@ exports.getQuestions = async (req, res, next) => {
 exports.getQuestionById = async (req, res, next) => {
   try {
     const questionId = req.params.id 
-    const question = await Question.findById(questionId)
+    const question = await Question.findById(questionId).populate([
+      { 
+        path: 'answers', 
+        select: "body createdAt",
+        populate: [{ path: 'answeredBy', select: "username" }] 
+      }
+    ]);
     if(!question) 
       return res.status(404).json({message: "Question not found."})
     
