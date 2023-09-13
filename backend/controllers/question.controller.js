@@ -1,4 +1,5 @@
 const Question = require("../models/question.model")
+const Answer = require("../models/answer.model")
 
 exports.createQuestion = async (req, res, next) => {
   try {
@@ -37,7 +38,7 @@ exports.editQuestion = async (req, res, next) => {
 
 exports.getQuestions = async (req, res, next) => {
   try {
-    const questions = await Question.find();
+    const questions = await Question.find().sort({createdAt: -1});
     return res.json(questions)
   } catch(error) {
     next(error)
@@ -51,7 +52,8 @@ exports.getQuestionById = async (req, res, next) => {
       { 
         path: 'answers', 
         select: "body createdAt",
-        populate: [{ path: 'answeredBy', select: "username" }] 
+        populate: [{ path: 'answeredBy', select: "username" }],
+        options: { sort: { 'createdAt': -1 } }
       }
     ]);
     if(!question) 
@@ -62,3 +64,31 @@ exports.getQuestionById = async (req, res, next) => {
     next(error)
   }
 }
+
+exports.acceptAnswer = async (req, res, next) => {
+  try {
+    const questionId = req.params.questionId;
+    const answerId = req.params.answerId;
+    const userId = req.user.userId
+
+    const question = await Question.findById(questionId);
+    const answer = await Answer.findById(answerId);
+
+    if (!question || !answer) {
+      return res.status(404).json({ message: 'Question or answer not found' });
+    }
+
+    // Check if the user making the request is the owner of the question
+    if (userId !== question.creator.toString()) {
+      return res.status(403).json({ message: 'You are not allowed to accept answers for this question' });
+    }
+
+    // Mark the answer as accepted
+    question.acceptedAnswer = answerId;
+    await question.save();
+
+    res.status(200).json({ message: 'Answer accepted successfully' });
+  } catch (error) {
+    next(error)
+  }
+};

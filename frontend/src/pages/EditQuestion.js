@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Textarea, Chip, Typography, Button, Collapse, Card, CardBody, Alert } from "@material-tailwind/react";
 import * as api from "../api"
-import { CREATE_QUESTION, REQUEST_FAILURE, REQUEST_INITIATED, REQUEST_NOT_INITIATED, REQUEST_SUCCESS, UPDATE_QUESTION } from '../constants';
+import {  REQUEST_FAILURE, REQUEST_INITIATED, REQUEST_NOT_INITIATED, REQUEST_SUCCESS } from '../constants';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -54,8 +54,7 @@ function EditQuestion() {
   const handleEditQuestion = async () => {
     try {
       setQuestionEditState(REQUEST_INITIATED)
-      const { data } = await api.editQuestion(question._id, question)
-      dispatch({ type: UPDATE_QUESTION, payload: data })
+      await api.editQuestion(question._id, question)
       setErrors({})
       setQuestionEditState(REQUEST_SUCCESS)
       setTimeout(() => {
@@ -77,7 +76,7 @@ function EditQuestion() {
 
         {
           errors?.message ? (<Alert color="red" className='w-full'>{errors.message}</Alert>) :
-            questionEditState === REQUEST_SUCCESS && (<Alert color="green" className='w-full'>Question Updated Successfully</Alert>)
+            questionEditState === REQUEST_SUCCESS && (<Alert color="green" className='w-full'>Question Updated Successfully. Redirecting to Home page</Alert>)
         }
 
         <div className="my-6 mx-2">

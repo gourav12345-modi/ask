@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Input, Textarea, Chip, Typography, Button, Collapse, Card, CardBody, Alert, CardFooter } from "@material-tailwind/react";
 import * as api from "../api"
-import { CREATE_QUESTION, REQUEST_FAILURE, REQUEST_INITIATED, REQUEST_NOT_INITIATED, REQUEST_SUCCESS, UPDATE_QUESTION } from '../constants';
+import { REQUEST_FAILURE, REQUEST_INITIATED, REQUEST_NOT_INITIATED, REQUEST_SUCCESS } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Question from '../components/Question';
@@ -15,7 +15,9 @@ function ViewQuestion() {
     title: "",
     body: "",
     tags: [],
-    answers: []
+    answers: [],
+    creator: "",
+    acceptedAnswer: ""
   })
   const [answer, setAnswer] = useState("")
   const [errors, setErrors] = useState({})
@@ -52,6 +54,16 @@ function ViewQuestion() {
     }
   }
 
+  const handleMarkAccepted = async (answerId) => {
+    try {
+      await api.markAnswerAccepted(question._id, answerId)
+      setQuestion({...question, acceptedAnswer: answerId})
+    } catch (error) {
+      console.log(error)
+      setErrors(error?.response?.data)
+    }
+  }
+
   return (
     <div className="view-page py-10">
      
@@ -72,7 +84,7 @@ function ViewQuestion() {
 
       {
         question.answers.map((answer) => (
-          <Answer {...answer} cardClassName="max-w-[700px] mx-auto"/>
+          <Answer {...answer} showAcceptBtn={(question.creator === userId && !question.acceptedAnswer)} cardClassName="max-w-[700px] mx-auto" isAcceptedAnswer={answer._id === question.acceptedAnswer} handleMarkAccepted={(e) => handleMarkAccepted(answer._id)}/>
         ))
       }
 

@@ -1,7 +1,7 @@
-import { Avatar, Card, CardBody, CardHeader, Typography } from '@material-tailwind/react'
+import { Avatar, Button, Card, CardBody, CardHeader, Chip, Typography } from '@material-tailwind/react'
 import React from 'react'
 
-function Answer({ body, createdAt, answeredBy, cardClassName }) {
+function Answer({ body, createdAt, answeredBy, cardClassName, showAcceptBtn, isAcceptedAnswer, handleMarkAccepted }) {
   return (
     <Card className={"mx-4 p-4 my-1 pb-1 " + cardClassName} shadow={false}>
       <CardHeader
@@ -21,8 +21,17 @@ function Answer({ body, createdAt, answeredBy, cardClassName }) {
             {answeredBy.username}
           </Typography>
           <Typography color="blue-gray" className="text-sm">{new Date(createdAt).toLocaleString()}</Typography>
-
         </div>
+        {
+          showAcceptBtn && (
+            <Button size="sm" className="ml-auto" onClick={handleMarkAccepted}>Mark Accepted</Button>
+          )
+        }
+        {
+          isAcceptedAnswer && (
+            <Chip value="Accepted" className="ml-auto" color="green"/>
+          )
+        }
       </CardHeader>
       <CardBody className="mb-2 p-0">
         <Typography className="text-left">{body}</Typography>

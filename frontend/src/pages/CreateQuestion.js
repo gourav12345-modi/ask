@@ -32,8 +32,7 @@ function CreateQuestion() {
   const handleCreateQuestion = async () => {
     try {
       setQuestionCreateState(REQUEST_INITIATED)
-      const { data } = await api.createQuestion(question)
-      dispatch({ type: CREATE_QUESTION, payload: data })
+      await api.createQuestion(question)
       setErrors({})
       setQuestionCreateState(REQUEST_SUCCESS)
       setTimeout(() => {
@@ -55,7 +54,7 @@ function CreateQuestion() {
 
         {
               errors?.message ? ( <Alert color="red" className='w-full'>{errors.message}</Alert> ): 
-              questionCreateState === REQUEST_SUCCESS &&  ( <Alert color="green" className='w-full'>Question Created Successfully</Alert> )
+              questionCreateState === REQUEST_SUCCESS &&  ( <Alert color="green" className='w-full'>Question Created Successfully. Redirecting to Home page</Alert> )
         }
 
         <div className="my-6 mx-2">

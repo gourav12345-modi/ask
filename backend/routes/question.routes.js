@@ -7,5 +7,6 @@ router.post('/', authMiddleware, questionController.createQuestion)
 router.patch('/:id', authMiddleware, questionController.editQuestion)
 router.get('/', questionController.getQuestions)
 router.get('/:id', questionController.getQuestionById)
+router.patch('/accept/:questionId/:answerId', authMiddleware, questionController.acceptAnswer);
 
 module.exports = router

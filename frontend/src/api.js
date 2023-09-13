@@ -26,3 +26,4 @@ export const editQuestion = (questionId, question) => axiosToken.patch(`${baseUR
 export const getQuestion = (questionId) => axios.get(`${baseURL}/question/${questionId}`)
 
 export const createAnswer = (questionId, answer) => axiosToken.post(`${baseURL}/answer/${questionId}`, answer)
+export const markAnswerAccepted = (questionId, answerId) => axiosToken.patch(`${baseURL}/question/accept/${questionId}/${answerId}`)
