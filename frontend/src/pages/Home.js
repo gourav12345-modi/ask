@@ -9,7 +9,6 @@ function Home() {
 
   const { questions } = useSelector((state) => state.questionData)
   const { userId } = useSelector((state) => state.userData)
-  console.log("questinos",questions)
   useEffect(() => {
     dispatch(getQuestions())
   }, [])
@@ -24,7 +23,7 @@ function Home() {
       <div className="questions-container flex flex-wrap">
         {
           (questions && questions.length)? questions.map((question) => (
-            <Question {...question} currentUserId={userId} cardClassName="w-96" />
+            <Question key={question._id} {...question} currentUserId={userId} cardClassName="w-96" />
           )): (<Alert color="blue" className='w-fit min-w-[400px] mx-auto'>No questions present. Please create one!</Alert>)
         }
       </div>

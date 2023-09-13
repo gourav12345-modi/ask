@@ -40,8 +40,8 @@ function Question({ _id, title, body, tags, answers, creator, currentUserId, car
         </div>
         <div className="flex flex-wrap">
           {
-            tags.map((tag) => (
-              <Chip value={tag} className="w-fit m-1" />
+            tags.map((tag, index) => (
+              <Chip key={index} value={tag} className="w-fit m-1" />
 
             ))
           }
