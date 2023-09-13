@@ -80,6 +80,6 @@ A simplified Stack Overflow clone built using the MERN (MongoDB, Express.js, Rea
 
 2. Navigate to frontend directory and run following command:
   
-  ```shell
-    npm start
-  ```
+    ```shell
+      npm start
+    ```
