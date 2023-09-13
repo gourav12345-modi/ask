@@ -25,7 +25,7 @@ function Home() {
         {
           (questions && questions.length)? questions.map((question) => (
             <Question {...question} currentUserId={userId} cardClassName="w-96" />
-          )): (<Alert color="blue" className='w-fit min-w-[400px] mx-auto'>No questions present Please create one!</Alert>)
+          )): (<Alert color="blue" className='w-fit min-w-[400px] mx-auto'>No questions present. Please create one!</Alert>)
         }
       </div>
 
