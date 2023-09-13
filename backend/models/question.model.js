@@ -11,7 +11,7 @@ const questionSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  tags: [{ type: String, trim: true }],
+  tags: [{ type: String, trim: true, uppercase: true }],
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
