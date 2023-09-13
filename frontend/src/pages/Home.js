@@ -18,7 +18,7 @@ function Home() {
     <div className="questions px-4  py-10">
       {
         !userId && (
-          <Alert color="blue" className='w-fit min-w-[400px] mx-auto'>Please login to ask a question</Alert>
+          <Alert color="blue" className='w-fit min-w-[400px] mx-auto mb-4'>Please login to ask a question</Alert>
         )
       }
       <div className="questions-container flex flex-wrap">

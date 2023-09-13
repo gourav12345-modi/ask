@@ -12,9 +12,6 @@ const questionReducer = (state = {}, action) => {
     case GET_QUESTIONS_FAILURE:
       return {...state, questionsLoading: false}
 
-    case LOGOUT:
-      return {}
-
     default: 
       return state
   }
