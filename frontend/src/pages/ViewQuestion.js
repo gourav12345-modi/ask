@@ -55,6 +55,7 @@ function ViewQuestion() {
       setQuestion({...question, answers: [answerResponse, ...question.answers]})
       setErrors({})
       setAnswerSubmitState(REQUEST_NOT_INITIATED)
+      setAnswer("")
     } catch (error) {
       console.log(error)
       setErrors(error?.response?.data)
@@ -84,7 +85,7 @@ function ViewQuestion() {
           userId ? (
             <>
             <CardBody>
-          <Textarea variant="static" placeholder="Your Answer" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+          <Textarea variant="static" placeholder="Add Your Answer" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         </CardBody>
         <CardFooter>
           <Button className="text-left" onClick={handleAnswerSubmit} disabled={answerSubmitState === REQUEST_INITIATED}>

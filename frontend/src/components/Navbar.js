@@ -18,6 +18,7 @@ const NavbarWithSearch = () => {
   const {token} = useSelector((state) => state.userData)
  
   const [openNav, setOpenNav] = React.useState(false);
+  const [searchInput, setSearchInput] = React.useState("")
 
   useEffect(() => {
     window.addEventListener(
@@ -113,11 +114,13 @@ const NavbarWithSearch = () => {
             type="search"
             className="pr-24"
             placeholder="Comma separated tags"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             containerProps={{
               className: "min-w-[288px]",
             }}
           />
-          <Button size="sm" className="!absolute right-1 top-1 rounded">
+          <Button size="sm" className="!absolute right-1 top-1 rounded" onClick={() => navigate(`/search?query=${searchInput}`)}>
             Search
           </Button>
         </div>

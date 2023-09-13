@@ -14,6 +14,7 @@ import CreateQuestion from './pages/CreateQuestion';
 import { getQuestions } from './actions/question.actions';
 import EditQuestion from './pages/EditQuestion';
 import ViewQuestion from './pages/ViewQuestion';
+import SearchQuestion from './pages/SearchQuestion'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/create" element={<CreateQuestion />} />
           <Route path="/edit" element={<EditQuestion />} />
           <Route path="/view" element={<ViewQuestion />} />
+          <Route path="/search" element={<SearchQuestion />} />
         </Routes>
       </Router>
     </div>
