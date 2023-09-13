@@ -7,10 +7,11 @@ import {
   Typography,
   Alert,
 } from "@material-tailwind/react";
+import jwt_decode from "jwt-decode"
 import { Link, useNavigate } from 'react-router-dom';
 import * as api from "../api"
 import { useDispatch } from 'react-redux';
-import { SET_TOKEN } from '../constants';
+import { SET_USER_DATA } from '../constants';
 
 function Login() {
   const navigate = useNavigate()
@@ -32,8 +33,11 @@ function Login() {
   const loginUser = async () => {
     try {
       const { data } = await api.login(userData)
+      const token = data.token
+      const {userId, username} = jwt_decode(token)
+      dispatch({ type: SET_USER_DATA, payload: {token: data.token, userId, username}})
+
       setErrors({})
-      dispatch({ type: SET_TOKEN, payload: data.token })
       navigate("/")
     } catch (error) {
       console.log(error)

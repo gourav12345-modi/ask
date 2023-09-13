@@ -21,5 +21,6 @@ export const register = (user) => axios.post(`${baseURL}/user/register`, user);
 export const login = (user) => axios.post(`${baseURL}/user/login`, user)
 
 export const createQuestion = (question) => axiosToken.post(`${baseURL}/question`, question)
-export const getQuestions = () => axiosToken.get(`${baseURL}/question`)
-export const editQuestion = (questionId, question) => axiosToken.patch(`${baseURL}/question`, question)
+export const getQuestions = () => axios.get(`${baseURL}/question`)
+export const editQuestion = (questionId, question) => axiosToken.patch(`${baseURL}/question/${questionId}`, question)
+export const getQuestion = (questionId) => axios.get(`${baseURL}/question/${questionId}`)

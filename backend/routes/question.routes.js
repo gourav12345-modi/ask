@@ -6,5 +6,6 @@ const router = express.Router()
 router.post('/', authMiddleware, questionController.createQuestion)
 router.patch('/:id', authMiddleware, questionController.editQuestion)
 router.get('/', questionController.getQuestions)
+router.get('/:id', questionController.getQuestionById)
 
 module.exports = router

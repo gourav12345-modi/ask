@@ -9,10 +9,10 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_TOKEN } from './constants';
 import NavbarWithSearch from './components/Navbar';
 import CreateQuestion from './pages/CreateQuestion';
 import { getQuestions } from './actions/question.actions';
+import EditQuestion from './pages/EditQuestion';
 
 function App() {
 
@@ -21,14 +21,8 @@ function App() {
   const { token } = useSelector((state) => state.userData)
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    if (token)
-      dispatch({ type: SET_TOKEN, payload: token })
-  }, [])
-
-  useEffect(() => {
       dispatch(getQuestions())
-  }, [token])
+  }, [])
 
   return (
     <div className="App">
@@ -39,6 +33,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/create" element={<CreateQuestion />} />
+          <Route path="/edit" element={<EditQuestion />} />
         </Routes>
       </Router>
     </div>

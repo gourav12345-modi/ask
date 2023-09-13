@@ -43,3 +43,16 @@ exports.getQuestions = async (req, res, next) => {
     next(error)
   }
 }
+
+exports.getQuestionById = async (req, res, next) => {
+  try {
+    const questionId = req.params.id 
+    const question = await Question.findById(questionId)
+    if(!question) 
+      return res.status(404).json({message: "Question not found."})
+    
+    return res.json(question)
+  } catch(error) {
+    next(error)
+  }
+}

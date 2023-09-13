@@ -1,12 +1,13 @@
-const { SET_TOKEN, LOGOUT } = require("../constants");
+const { LOGOUT, SET_USER_DATA } = require("../constants");
 
 const userReducer = (state = {}, action) => {
   switch (action.type) {
-    case SET_TOKEN:
-      localStorage.setItem("token", action.payload)
+    case SET_USER_DATA:
+      const userData = action.payload
+      localStorage.setItem("token", userData.token)
       return {
         ...state,
-        token: action.payload,
+        ...userData
       };
     case LOGOUT:
       localStorage.removeItem("token")

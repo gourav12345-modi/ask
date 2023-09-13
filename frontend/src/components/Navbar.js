@@ -5,25 +5,39 @@ import {
   Button,
   Input,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import React from "react"
+import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT } from "../constants";
+import { LOGOUT, SET_USER_DATA } from "../constants";
 
 const NavbarWithSearch = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const {token} = useSelector((state) => state.userData)
-  console.log("Token is ", token)
  
   const [openNav, setOpenNav] = React.useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      const {userId, username, exp} = jwt_decode(token)
+      
+      // if token expired then redirect to login page
+      if (Date.now() >= exp * 1000) {
+        navigate("/login")
+      }
+      dispatch({ type: SET_USER_DATA, payload: {token, username, userId} })
+    }
+  }, [])
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:justify-end">
