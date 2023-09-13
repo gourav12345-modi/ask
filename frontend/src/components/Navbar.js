@@ -109,9 +109,10 @@ const NavbarWithSearch = () => {
        <div className="flex items-center">
        <div className="relative flex w-full gap-2 md:w-max mr-2">
           <Input
+            variant="standard"
             type="search"
-            label="Type here..."
-            className="pr-20"
+            className="pr-24"
+            placeholder="Comma separated tags"
             containerProps={{
               className: "min-w-[288px]",
             }}

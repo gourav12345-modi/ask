@@ -25,10 +25,11 @@ function EditQuestion() {
       const params = new URLSearchParams(search);
       const questionId = params.get('id');
       if(!questionId) {
-        setErrors({message: "No question found to edit." })
+        setErrors({message: "No question found to edit. Redirecting to home page." })
         setTimeout(() => {
           navigate("/")
         }, 2000)
+        return 
       }
      
       try {

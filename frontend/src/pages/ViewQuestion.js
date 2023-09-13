@@ -8,6 +8,7 @@ import Question from '../components/Question';
 import Answer from '../components/Answer';
 
 function ViewQuestion() {
+  const navigate = useNavigate()
 
   const { userId, username } = useSelector((state) => state.userData)
   const [question, setQuestion] = useState({
@@ -28,6 +29,13 @@ function ViewQuestion() {
       const search = window.location.search;
       const params = new URLSearchParams(search);
       const questionId = params.get('id');
+      if(!questionId) {
+        setErrors({message: "No question found to view.Redirecting to home page." })
+        setTimeout(() => {
+          navigate("/")
+        }, 2000)
+        return 
+      }
       try {
         const { data } = await api.getQuestion(questionId)
         setQuestion(data)
@@ -72,7 +80,10 @@ function ViewQuestion() {
         errors?.message && (<Alert color="red" className='max-w-[400px] mx-auto'>{errors.message}</Alert>)
       }
       <Card className="max-w-[700px] mx-auto">
-        <CardBody>
+        {
+          userId ? (
+            <>
+            <CardBody>
           <Textarea variant="static" placeholder="Your Answer" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         </CardBody>
         <CardFooter>
@@ -80,6 +91,11 @@ function ViewQuestion() {
             {answerSubmitState === REQUEST_INITIATED ? "Submitting" : "Answer"}
           </Button>
         </CardFooter>
+            </>
+          ): <CardBody>
+            <Typography>Please login to add your answer</Typography>
+        </CardBody>
+        }
       </Card>
 
       {
