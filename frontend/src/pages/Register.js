@@ -5,6 +5,7 @@ import {
   Checkbox,
   Button,
   Typography,
+  Alert,
 } from "@material-tailwind/react";
 import { Link, useNavigate } from 'react-router-dom';
 import * as api from "../api"
@@ -48,13 +49,12 @@ function Register() {
         </Typography>
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 mx-auto">
           <div className="mb-4 flex flex-col ">
-          <Typography
-              variant="small"
-              color="gray"
-              className="flex justify-center font-normal"
-            >
-              {errors?.message}
-            </Typography>
+          {
+              errors.message && (
+                <Alert color="red" className='w-full'>{errors.message}</Alert>
+
+              )
+            }
             <div className="mt-4">
             <Input size="lg"  label="Username" name="username" value={userData.username} onChange={handleInputChange} />
             <Typography
