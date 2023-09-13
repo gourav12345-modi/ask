@@ -10,8 +10,6 @@ A simplified Stack Overflow clone built using the MERN (MongoDB, Express.js, Rea
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Run](#run)
-- [Testing](#testing)
-- [Documentation](#documentation)
 
 ## Features
 
@@ -81,6 +79,7 @@ A simplified Stack Overflow clone built using the MERN (MongoDB, Express.js, Rea
     ```
 
 2. Navigate to frontend directory and run following command:
+  
   ```shell
     npm start
   ```
