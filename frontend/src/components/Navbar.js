@@ -83,7 +83,7 @@ const NavbarWithSearch = () => {
         color="blue-gray"
         className="p-1 font-normal cursor-pointer"
       >
-        <Link to="/register" className="flex items-center">
+        <Link to="/regiser" className="flex items-center">
           Register
         </Link>
       </Typography>
