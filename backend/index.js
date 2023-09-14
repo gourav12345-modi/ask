@@ -18,16 +18,19 @@ mongoose.connect(mongodbURI).then(() => {
 });
 
 app.get('/status', (req, res) => {
-  return res.json({message: "server running."})
+  return res.json({ message: "server running." })
 })
 app.use('/api/user', userRoutes)
 app.use('/api/question', questionRoutes)
 app.use('/api/answer', answerRoutes)
 app.use(errorMiddleware);
-app.use(express.static('client/'));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/', 'index.html'));
-});
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static('client/'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/', 'index.html'));
+  });
+}
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
