@@ -1,5 +1,6 @@
 const express = require("express")
 const dotenv = require("dotenv")
+const path = require("path")
 const userRoutes = require("./routes/user.routes")
 const questionRoutes = require("./routes/question.routes")
 const answerRoutes = require("./routes/answer.routes")
@@ -23,6 +24,10 @@ app.use('/api/user', userRoutes)
 app.use('/api/question', questionRoutes)
 app.use('/api/answer', answerRoutes)
 app.use(errorMiddleware);
+app.use(express.static('client/'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/', 'index.html'));
+});
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

@@ -13,8 +13,8 @@ function Answer({ body, createdAt, answeredBy, cardClassName, showAcceptBtn, isA
         <Avatar
           size="sm"
           variant="circular"
-          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-          alt="tania andrew"
+          src="/images/user.png"
+          alt="user image"
         />
         <div className="flex items-start flex-col">
           <Typography variant="h6" color="blue-gray">
